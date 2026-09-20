@@ -18,11 +18,11 @@ public class LibroService {
     public Libro crearLibro(String titulo, String autor) {
 
         if (titulo == null || titulo.isBlank()) {
-            throw new RuntimeException("El título es obligatorio");
+            throw new IllegalArgumentException("El título es obligatorio");
         }
 
         if (autor == null || autor.isBlank()) {
-            throw new RuntimeException("El autor es obligatorio");
+            throw new IllegalArgumentException("El autor es obligatorio");
         }
 
         Libro libro = new Libro(titulo, autor);
