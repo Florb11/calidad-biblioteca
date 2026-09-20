@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 @Entity
 public class Libro {
 
+    private static final String NO_SE_PUEDE_PRESTAR = "No se puede prestar";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,14 +29,6 @@ public class Libro {
     // --- GETTERS ---
 
     public Long getId() {
-        return id;
-    }
-
-    public Long getId2() {
-        return id;
-    }
-
-    public Long getId3() {
         return id;
     }
 
@@ -69,21 +63,8 @@ public class Libro {
     }
 
     public String prestar() {
-
-        if (titulo == null) {
-            return "No se puede prestar";
-        }
-
-        if (titulo.isEmpty()) {
-            return "No se puede prestar";
-        }
-
-        if (autor == null) {
-            return "No se puede prestar";
-        }
-
-        if (autor.isEmpty()) {
-            return "No se puede prestar";
+        if (esTextoInvalido(titulo) || esTextoInvalido(autor)) {
+            return NO_SE_PUEDE_PRESTAR;
         }
 
         if (prestado) {
@@ -91,8 +72,11 @@ public class Libro {
         }
 
         prestado = true;
-
         return "Libro prestado correctamente";
+    }
+
+    private static boolean esTextoInvalido(String texto) {
+        return texto == null || texto.isEmpty();
     }
 
 }
